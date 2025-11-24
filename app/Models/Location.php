@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\Translatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Location extends Model
+{
+    use HasFactory, SoftDeletes;
+    use Translatable;
+    protected $fillable = [
+        'name_en',
+        'name_ar',
+        'name_ku',
+    ];
+
+    public function scopeFilterName($query, $keyword)
+    {
+        return $query->when($keyword, function ($q, $keyword) {
+            $q->where(function ($q) use ($keyword) {
+                $q->where('name_en', 'like', "%{$keyword}%")
+                    ->orWhere('name_ar', 'like', "%{$keyword}%")
+                    ->orWhere('name_ku', 'like', "%{$keyword}%");
+            });
+        });
+    }
+
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+}

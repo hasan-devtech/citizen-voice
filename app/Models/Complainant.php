@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Models;
+
+use App\Http\Resources\ComplainantResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
+
+class Complainant extends Model
+{
+    use HasFactory, SoftDeletes, HasApiTokens;
+    protected $fillable = [
+        'identifier',
+        'password',
+        'birthdate',
+        'is_verified',
+        'full_name'
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'is_verified' => 'boolean',
+            'password' => 'hashed',
+            'birthdate' => 'date',
+        ];
+    }
+    public function markAsVerified()
+    {
+        $this->update(['is_verified' => true]);
+    }
+
+    public function asResource()
+    {
+        return ComplainantResource::make($this);
+    }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+}
