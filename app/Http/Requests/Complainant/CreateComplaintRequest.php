@@ -11,7 +11,7 @@ class CreateComplaintRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class CreateComplaintRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'complaint_category_id' => 'required|exists:complaint_types,id',
+            'complaint_category_id' => 'required|exists:complaint_categories,id',
             'agency_id' => 'required|exists:agencies,id',
             'location_id' => 'required|exists:locations,id',
             'title' => 'required|string|max:255',

@@ -2,13 +2,22 @@
 
 namespace App\Services;
 
+use App\Repositories\ComplaintRepository;
+
 class ComplaintService
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+
+    public function __construct(protected ComplaintRepository $repo)
     {
-        //
     }
+
+    public function store(array $data, array $files)
+    {
+        return $this->repo->createComplaint($data, $files);
+    }
+    public function getComplaints(array $filters)
+    {
+        return $this->repo->filter($filters);
+    }
+
 }

@@ -23,9 +23,13 @@ class Complaint extends Model
         'status',
     ];
 
-    protected $casts = [
-        'status' => ComplaintStatusEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'status' => ComplaintStatusEnum::class
+        ];
+    }
 
     protected static function booted()
     {
@@ -35,6 +39,29 @@ class Complaint extends Model
             }
         });
     }
+    public function scopeFilter($query, array $filters)
+    {
+        return $query
+            ->when($filters['status'] ?? null, function ($q, $value) {
+                $q->where('status', $value);
+            })
+            ->when($filters['agency_id'] ?? null, function ($q, $value) {
+                $q->where('agency_id', $value);
+            })
+            ->when($filters['category_id'] ?? null, function ($q, $value) {
+                $q->where('complaint_category_id', $value);
+            })
+            ->when($filters['location_id'] ?? null, function ($q, $value) {
+                $q->where('location_id', $value);
+            })
+            ->when($filters['from'] ?? null, function ($q, $value) {
+                $q->whereDate('created_at', '>=', $value);
+            })
+            ->when($filters['to'] ?? null, function ($q, $value) {
+                $q->whereDate('created_at', '<=', $value);
+            });
+    }
+
 
 
     public function complinant()
@@ -54,5 +81,9 @@ class Complaint extends Model
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 }
