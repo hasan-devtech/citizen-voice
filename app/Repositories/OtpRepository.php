@@ -7,9 +7,6 @@ use App\Models\OTP;
 
 class OtpRepository
 {
-    /**
-     * Create a new class instance.
-     */
     public function __construct()
     {
         //
