@@ -22,7 +22,9 @@ class AgencySeeder extends Seeder
                 'description_ar' => 'الجهة المسؤولة عن الكهرباء',
                 'description_en' => 'Responsible authority for electricity',
                 'description_ku' => 'دەزگا بەرپرسی کارەبا',
-                'parent_id' => null
+                'parent_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name_ar' => 'وزارة المياه',
@@ -31,7 +33,9 @@ class AgencySeeder extends Seeder
                 'description_ar' => 'الجهة المسؤولة عن المياه',
                 'description_en' => 'Responsible authority for water',
                 'description_ku' => 'دەزگا بەرپرسی ئاو',
-                'parent_id' => null
+                'parent_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name_ar' => 'بلدية دمشق',
@@ -40,7 +44,9 @@ class AgencySeeder extends Seeder
                 'description_ar' => 'الجهة المسؤولة عن خدمات المدينة',
                 'description_en' => 'City public services authority',
                 'description_ku' => 'دەزگا بەرپرسی خزمەتگوزاری شار',
-                'parent_id' => null
+                'parent_id' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
         Agency::factory()->count(10)->create();

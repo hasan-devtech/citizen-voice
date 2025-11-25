@@ -22,6 +22,8 @@ class ComplaintCategorySeeder extends Seeder
                 'description_ar' => 'مشاكل الكهرباء والانقطاع والعدادات',
                 'description_en' => 'Electricity-related issues',
                 'description_ku' => 'کێشەکانی کارەبا و شەشەکان',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name_ar' => 'المياه',
@@ -30,6 +32,8 @@ class ComplaintCategorySeeder extends Seeder
                 'description_ar' => 'مشاكل المياه والشبكات',
                 'description_en' => 'Water-related issues',
                 'description_ku' => 'کێشەکانی ئاو و شەبەکەکان',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name_ar' => 'النظافة',
@@ -38,6 +42,8 @@ class ComplaintCategorySeeder extends Seeder
                 'description_ar' => 'شكاوى النظافة والقمامة',
                 'description_en' => 'Sanitation and waste complaints',
                 'description_ku' => 'شکایەتی پاکیزەکاری و خەرابکاری',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
         ComplaintCategory::factory()->count(10)->create();

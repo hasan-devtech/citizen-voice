@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AgencyController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ComplaintCategoryController;
 use App\Http\Controllers\Api\ComplaintController;
+use App\Http\Controllers\Api\FcmController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\OtpController;
 use Illuminate\Http\Request;
@@ -30,9 +31,9 @@ Route::middleware(['auth:sanctum', 'set.language'])->group(function () {
 });
 
 //
-Route::controller(ComplaintController::class)->middleware('auth:sanctum')->prefix('complaints')->group(function(){
-    Route::post('','store');
-    Route::get('','index');
+Route::controller(ComplaintController::class)->middleware('auth:sanctum')->prefix('complaints')->group(function () {
+    Route::post('', 'store');
+    Route::get('', 'index');
 });
 
-
+Route::post('fcm-set', [FcmController::class, 'setToken'])->middleware('auth:sanctum');

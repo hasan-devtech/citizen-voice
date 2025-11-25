@@ -12,15 +12,13 @@ return new class extends Migration {
     {
         Schema::create('agencies', function (Blueprint $table) {
             $table->id();
-            $table->string('name_ar',127);
-            $table->string('name_en',127);
-            $table->string('name_ku',127);
+            $table->string('name_ar', 127);
+            $table->string('name_en', 127);
+            $table->string('name_ku', 127);
             $table->string('description_en')->nullable();
             $table->string('description_ar')->nullable();
             $table->string('description_ku')->nullable();
-            $table->foreignId('parent_id')->nullable()
-                ->constrained('agencies')
-                ->cascadeOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('agencies')->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

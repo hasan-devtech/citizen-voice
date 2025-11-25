@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('complainants', function (Blueprint $table) {
             $table->id();
             $table->string('full_name',127);
-            $table->string('identifier',127)->unique(); 
+            $table->string('identifier',127); 
             $table->string('password')->nullable();
             $table->date('birthdate')->nullable();
             $table->boolean('is_verified')->default(false);

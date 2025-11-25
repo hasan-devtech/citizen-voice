@@ -51,4 +51,14 @@ class Complainant extends Model
         return $this->morphMany(Attachment::class, 'attachable');
     }
 
+    public function fcmTokens()
+    {
+        return $this->morphMany(FcmToken::class, 'user');
+    }
+
+    public function routeNotificationForFcm()
+    {
+        return $this->fcmTokens()->pluck('token')->toArray();
+    }
+
 }

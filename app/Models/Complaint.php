@@ -62,9 +62,7 @@ class Complaint extends Model
             });
     }
 
-
-
-    public function complinant()
+    public function complainant()
     {
         return $this->belongsTo(Complainant::class);
     }

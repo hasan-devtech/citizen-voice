@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('code');
             $table->timestamp('expires_at');
             $table->boolean('is_used')->default(false);
-            $table->enum('type',enumValues(OtpTypeEnum::class));
+            $table->enum('type', enumValues(OtpTypeEnum::class));
             $table->timestamps();
         });
     }
