@@ -17,7 +17,7 @@ class ComplaintService
     }
     public function getComplaints(array $filters)
     {
-        return $this->repo->filter($filters);
+        return $this->repo->filter( $filters);
     }
 
 }

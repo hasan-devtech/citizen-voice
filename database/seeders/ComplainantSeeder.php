@@ -15,7 +15,7 @@ class ComplainantSeeder extends Seeder
     public function run(): void
     {
         Complainant::firstOrCreate([
-            'identifier' => '0943653015',
+            'identifier' => '0999999999',
             'full_name' => 'hasan',
             'birthdate' => '22-4-2000',
             'is_verified' => true,

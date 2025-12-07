@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class AttachmentResource extends JsonResource
 {
@@ -15,11 +16,13 @@ class AttachmentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'file_type' => $this->file_type,
-            'size_kb' => $this->size_kb,
-            'created_at' => $this->created_at->toDateTimeString(),
-        ];
+    return [
+        'id' => $this->id,
+        'url' => URL::temporarySignedRoute(
+            'attachments.show',
+            now()->addMinutes(15),
+            ['attachment' => $this->id]
+        ),
+    ];
     }
 }

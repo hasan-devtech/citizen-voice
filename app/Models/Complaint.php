@@ -72,6 +72,7 @@ class Complaint extends Model
         return $this->belongsTo(ComplaintCategory::class);
     }
 
+
     public function agency()
     {
         return $this->belongsTo(Agency::class);

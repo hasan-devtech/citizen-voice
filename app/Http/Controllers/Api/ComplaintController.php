@@ -28,8 +28,11 @@ class ComplaintController extends Controller
 
     public function index(GetComplaintsRequest $request)
     {
-        $complaints = $this->service->getComplaints($request->validated());
+        $filters = $request->validated();
+        $filters['complainant_id'] = $request->user()->id;
+        $complaints = $this->service->getComplaints($filters);
         return ResponseHelper::paginated(ComplaintResource::collection($complaints));
     }
+
 
 }

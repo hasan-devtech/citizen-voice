@@ -3,18 +3,17 @@
 namespace App\Http\Requests\Complainant;
 
 use App\Enums\ComplaintStatusEnum;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-class GetComplaintsRequest extends JsonResource
+class GetComplaintsRequest extends FormRequest
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
     {
         return [
             'status' => ['nullable', new Enum(ComplaintStatusEnum::class)],

@@ -14,7 +14,7 @@ class ComplaintRepository
     public function __construct(
         protected AttachmentRepository $attachmentRepo
     ) {
-        //
+
     }
     public function createComplaint(array $data, $files)
     {
@@ -36,17 +36,20 @@ class ComplaintRepository
             Log::error('Failed to create complaint: ' . $e->getMessage(), [
                 'data' => $data,
             ]);
-            throw new \RuntimeException('Unable to create complaint at this time.');
+            throw new \RuntimeException('Unable to create complaint at this time');
         }
     }
 
     public function filter(array $filters)
     {
         return Complaint::query()
-            ->with(['category', 'agency', 'location', 'attachments'])
+            ->where('complainant_id', $filters['complainant_id'])
+            ->with(['complaintCategory', 'agency', 'location', 'attachments'])
             ->filter(filters: $filters)
-            ->paginate(perPage: $filters['per_page'] ?? 15);
+            ->paginate($filters['per_page'] ?? 15);
     }
+
+
 
 
 }

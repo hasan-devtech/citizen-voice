@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AgencyController;
+use App\Http\Controllers\Api\AttachmentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ComplaintCategoryController;
 use App\Http\Controllers\Api\ComplaintController;
@@ -31,9 +32,14 @@ Route::middleware(['auth:sanctum', 'set.language'])->group(function () {
 });
 
 //
-Route::controller(ComplaintController::class)->middleware('auth:sanctum')->prefix('complaints')->group(function () {
+Route::controller(ComplaintController::class)->middleware(['auth:sanctum', 'set.language'])->prefix('complaints')->group(function () {
     Route::post('', 'store');
     Route::get('', 'index');
 });
+Route::get('attachments/{attachment}', [AttachmentController::class, 'show'])
+    ->middleware(['auth:sanctum', 'signed'])
+    ->name('attachments.show');
+
+
 
 Route::post('fcm-set', [FcmController::class, 'setToken'])->middleware('auth:sanctum');

@@ -20,8 +20,8 @@ class ComplaintResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'category' => $this->whenLoaded(
-                'category',
-                fn() => new ComplaintCategoryResource($this->category)
+                'complaintCategory',
+                fn() => new ComplaintCategoryResource($this->complaintCategory)
             ),
             'agency' => $this->whenLoaded(
                 'agency',
