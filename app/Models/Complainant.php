@@ -6,11 +6,12 @@ use App\Http\Resources\ComplainantResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Complainant extends Model
 {
-    use HasFactory, SoftDeletes, HasApiTokens;
+    use HasFactory, SoftDeletes, HasApiTokens, Notifiable;
     protected $fillable = [
         'identifier',
         'password',
@@ -60,5 +61,10 @@ class Complainant extends Model
     {
         return $this->fcmTokens()->pluck('token')->toArray();
     }
+    public function routeNotificationForMail()
+    {
+        return $this->identifier;
+    }
+
 
 }

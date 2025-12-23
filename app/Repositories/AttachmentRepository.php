@@ -15,8 +15,7 @@ class AttachmentRepository
     }
     public function createForModel($model, $file, string $folder = 'complaints', string $disk = 'public', bool $isPublic = true)
     {
-        $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs($folder, $fileName, $disk);
+        $path = $file->store($folder, $disk);
         return $model->attachments()->create([
             'file_path' => $path,
             'disk' => $disk,

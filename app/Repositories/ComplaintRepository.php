@@ -46,7 +46,7 @@ class ComplaintRepository
             ->where('complainant_id', $filters['complainant_id'])
             ->with(['complaintCategory', 'agency', 'location', 'attachments'])
             ->filter(filters: $filters)
-            ->paginate($filters['per_page'] ?? 15);
+            ->get();
     }
 
 

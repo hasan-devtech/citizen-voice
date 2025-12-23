@@ -31,7 +31,7 @@ class ComplaintController extends Controller
         $filters = $request->validated();
         $filters['complainant_id'] = $request->user()->id;
         $complaints = $this->service->getComplaints($filters);
-        return ResponseHelper::paginated(ComplaintResource::collection($complaints));
+        return ResponseHelper::success(ComplaintResource::collection($complaints));
     }
 
 
