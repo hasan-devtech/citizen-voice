@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Complaint extends Model
 {
+    use LogsActivity;
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -22,7 +25,20 @@ class Complaint extends Model
         'description',
         'status',
     ];
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'complainant_id',
+                'complaint_category_id',
+                'agency_id',
+                'location_id',
+                'reference_number',
+                'title',
+                'description',
+                'status',
+            ]);
+    }
     protected function casts(): array
     {
         return [

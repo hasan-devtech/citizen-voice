@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Complainant extends Model
 {
+    use LogsActivity;
     use HasFactory, SoftDeletes, HasApiTokens;
+    
     protected $fillable = [
         'identifier',
         'password',
@@ -18,6 +22,18 @@ class Complainant extends Model
         'is_verified',
         'full_name'
     ];
+
+    protected static $recordEvents = ['updated'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'identifier',
+                'birthdate',
+                'full_name'
+            ]);
+    }
 
     protected $hidden = [
         'password',

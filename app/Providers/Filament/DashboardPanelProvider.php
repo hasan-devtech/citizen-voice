@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,10 +33,8 @@ class DashboardPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue
             ])
-            // ->font('Almarai', provider: GoogleFontProvider::class)
             ->darkMode(false)
             ->brandName('Citizen Voice')
-            // ->favicon(asset('/storage/assets/logo.png'))
             ->navigationGroups([
                 'settings' => NavigationGroup::make()
                     ->label(fn() => __('filament.groups.settings')),
@@ -62,6 +61,9 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                FilamentShieldPlugin::make()
             ]);
     }
 }

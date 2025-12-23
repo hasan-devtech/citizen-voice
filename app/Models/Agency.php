@@ -7,9 +7,12 @@ use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Agency extends Model
 {
+    use LogsActivity;
     use HasFactory, SoftDeletes;
     use Translatable;
     protected $fillable = [
@@ -20,6 +23,19 @@ class Agency extends Model
         'description_ar',
         'description_ku',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'name_en',
+                'name_ar',
+                'name_ku',
+                'description_en',
+                'description_ar',
+                'description_ku',
+            ]);
+    }
 
     public function scopeFilterName($query, $keyword)
     {

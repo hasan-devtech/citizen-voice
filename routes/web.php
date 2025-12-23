@@ -6,7 +6,6 @@ use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 
 Route::get('/', function () {
-
-
+    return 'hey';
     // return view('welcome');
 });

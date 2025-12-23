@@ -25,6 +25,7 @@ return [
                 'name_ku' => 'الاسم بالكردي',
                 'slug_en' => 'الرابط بالإنكليزي',
                 'slug_ar' => 'الرابط بالعربي',
+                'slug_ku' => 'الرابط بالكردي',
                 'description_en' => 'الوصف بالإنكليزي',
                 'description_ar' => 'الوصف بالعربي',
                 'description_ku' => 'الوصف بالكردي',
@@ -33,6 +34,9 @@ return [
                 'alt' => 'نص بديل',
                 'created_at' => 'تاريخ الإنشاء',
                 'updated_at' => 'تاريخ التحديث',
+            ],
+            'actions' => [
+                'activities' => 'السجل الزمني'
             ]
         ],
         'agency' => [

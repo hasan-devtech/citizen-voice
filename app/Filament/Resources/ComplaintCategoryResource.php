@@ -95,6 +95,11 @@ class ComplaintCategoryResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('activities')
+                    ->label(__('filament.resources.general.actions.activities'))
+                    ->icon('heroicon-o-newspaper')
+                    ->url(fn($record) =>
+                        ComplaintCategoryResource::getUrl('activities', ['record' => $record])),
                 Tables\Actions\EditAction::make()
                     ->slideOver()
                     ->modalWidth(MaxWidth::ThreeExtraLarge),
@@ -115,6 +120,7 @@ class ComplaintCategoryResource extends Resource
     {
         return [
             'index' => Pages\ManageComplaintCategories::route('/'),
+            'activities' => Pages\ComplaintCategoryActivities::route('/{record}/activities'),
         ];
     }
 }

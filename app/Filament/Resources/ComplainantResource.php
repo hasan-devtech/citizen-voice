@@ -95,6 +95,11 @@ class ComplainantResource extends Resource
                     ->visible(fn($record) => !$record->is_verified)
                     ->requiresConfirmation()
                     ->action(fn($record) => $record->update(['is_verify' => true])),
+                Tables\Actions\Action::make('activities')
+                    ->label(__('filament.resources.general.actions.activities'))
+                    ->icon('heroicon-o-newspaper')
+                    ->url(fn($record) =>
+                        ComplainantResource::getUrl('activities', ['record' => $record])),
                 Tables\Actions\EditAction::make()
                     ->slideOver()
                     ->modalWidth(MaxWidth::ThreeExtraLarge),
@@ -115,6 +120,7 @@ class ComplainantResource extends Resource
     {
         return [
             'index' => Pages\ManageComplainants::route('/'),
+            'activities' => Pages\ComplainantActivities::route('/{record}/activities'),
         ];
     }
 }

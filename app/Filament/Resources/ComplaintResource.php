@@ -139,7 +139,7 @@ class ComplaintResource extends Resource
                         ->action(function ($record) {
                             $record->update(['status' => ComplaintStatusEnum::REJECTED]);
                             $messaging = $messaging = app('firebase.messaging');
-                            $message = CloudMessage::withTarget('token', $record->routeNotificationForFcm[0])
+                            $message = CloudMessage::withTarget('token', 'culNuqJKR0aHl2DmjfTB6R:APA91bGRqvzVMpKm2-WHb7HkWnbxEpopke90IspRjVss29J_HDgVMBeAzkPNRFKGUp_hKG2JAH6aj7R8q6LHFVpQyxSEJtvsyQSRg5Fdi_87Ju3AVYd-Tv0')
                                 ->withNotification(Notification::create(
                                     'Status Updated',
                                     "Case {$record->reference_number} is updated, its status now " . ComplaintStatusEnum::REJECTED->value
@@ -158,7 +158,7 @@ class ComplaintResource extends Resource
                             $record->update(['status' => ComplaintStatusEnum::PROCESSING]);
 
                             $messaging = $messaging = app('firebase.messaging');
-                            $message = CloudMessage::withTarget('token', $record->routeNotificationForFcm[0])
+                            $message = CloudMessage::withTarget('token', 'culNuqJKR0aHl2DmjfTB6R:APA91bGRqvzVMpKm2-WHb7HkWnbxEpopke90IspRjVss29J_HDgVMBeAzkPNRFKGUp_hKG2JAH6aj7R8q6LHFVpQyxSEJtvsyQSRg5Fdi_87Ju3AVYd-Tv0')
                                 ->withNotification(Notification::create(
                                     'Status Updated',
                                     "Case {$record->reference_number} is updated, its status now " . ComplaintStatusEnum::PROCESSING->value
@@ -177,7 +177,7 @@ class ComplaintResource extends Resource
                             $record->update(['status' => ComplaintStatusEnum::RESOLVED]);
 
                             $messaging = $messaging = app('firebase.messaging');
-                            $message = CloudMessage::withTarget('token', $record->routeNotificationForFcm[0])
+                            $message = CloudMessage::withTarget('token', 'culNuqJKR0aHl2DmjfTB6R:APA91bGRqvzVMpKm2-WHb7HkWnbxEpopke90IspRjVss29J_HDgVMBeAzkPNRFKGUp_hKG2JAH6aj7R8q6LHFVpQyxSEJtvsyQSRg5Fdi_87Ju3AVYd-Tv0')
                                 ->withNotification(Notification::create(
                                     'Status Updated',
                                     "Case {$record->reference_number} is updated, its status now " . ComplaintStatusEnum::RESOLVED->value
@@ -186,6 +186,11 @@ class ComplaintResource extends Resource
                             $messaging->send($message);
                         }),
 
+                    Tables\Actions\Action::make('activities')
+                        ->label(__('filament.resources.general.actions.activities'))
+                        ->icon('heroicon-o-newspaper')
+                        ->url(fn($record) =>
+                            ComplaintResource::getUrl('activities', ['record' => $record])),
                     Tables\Actions\EditAction::make()
                         ->slideOver()
                         ->modalWidth(MaxWidth::ThreeExtraLarge),
@@ -207,6 +212,7 @@ class ComplaintResource extends Resource
     {
         return [
             'index' => Pages\ManageComplaints::route('/'),
+            'activities' => Pages\ComplaintActivities::route('/{record}/activities'),
         ];
     }
 }

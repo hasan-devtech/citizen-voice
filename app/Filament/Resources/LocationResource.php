@@ -85,6 +85,11 @@ class LocationResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('activities')
+                    ->label(__('filament.resources.general.actions.activities'))
+                    ->icon('heroicon-o-newspaper')
+                    ->url(fn($record) =>
+                        LocationResource::getUrl('activities', ['record' => $record])),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -99,6 +104,7 @@ class LocationResource extends Resource
     {
         return [
             'index' => Pages\ManageLocations::route('/'),
+            'activities' => Pages\LocationActivities::route('/{record}/activities'),
         ];
     }
 }

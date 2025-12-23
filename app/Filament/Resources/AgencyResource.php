@@ -95,6 +95,11 @@ class AgencyResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('activities')
+                    ->label(__('filament.resources.general.actions.activities'))
+                    ->icon('heroicon-o-newspaper')
+                    ->url(fn($record) =>
+                        AgencyResource::getUrl('activities', ['record' => $record])),
                 Tables\Actions\EditAction::make()
                     ->slideOver()
                     ->modalWidth(MaxWidth::ThreeExtraLarge),
@@ -115,6 +120,7 @@ class AgencyResource extends Resource
     {
         return [
             'index' => Pages\ManageAgencies::route('/'),
+            'activities' => Pages\AgencyActivities::route('/{record}/activities'),
         ];
     }
 }
