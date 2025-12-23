@@ -57,12 +57,6 @@ class Handler extends ExceptionHandler
                     $exception->errors()
                 );
             }
-            if ($exception instanceof HttpResponseException) {
-                return ResponseHelper::error($exception->getMessage(), $exception->getCode());
-            }
-            if ($exception instanceof ThrottleRequestsException) {
-                return ResponseHelper::error("Too many requests. Please slow down", 429);
-            }
         }
 
         return parent::render($request, $exception);

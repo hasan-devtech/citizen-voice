@@ -11,6 +11,7 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\SendOtpRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rules\Enum;
 
 class AuthController extends Controller
@@ -27,12 +28,15 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $response = $this->authService->login(
-            $request->validated()
-        );
-        return ResponseHelper::success(
-            $response->toArray(),
-            "Login Successfully"
+        $identifier = (string) $request->input('identifier');
+        $ipKey = 'login_attempts_ip:' . $request->ip();
+        $userKey = 'login_attempts_user:' . $identifier;
+        $result = $this->authService->login($request->validated());
+        RateLimiter::clear($userKey);
+        RateLimiter::clear($ipKey);
+        return ResponseHelper::success( 
+            $result->toArray(),
+            'Login successfully'
         );
     }
     public function logout(Request $request)
@@ -58,7 +62,7 @@ class AuthController extends Controller
     public function resendOtp(SendOtpRequest $request)
     {
         $data = $request->validated();
-        $this->authService->resendOtp($data['identifier'],$data['type']);
+        $this->authService->resendOtp($data['identifier'], $data['type']);
         return ResponseHelper::success();
     }
 

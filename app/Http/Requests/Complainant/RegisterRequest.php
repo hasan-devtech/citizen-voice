@@ -14,7 +14,7 @@ class RegisterRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
+    }   
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,19 +25,16 @@ class RegisterRequest extends FormRequest
     {
         return [
             'identifier' => ['required', 'string', new IdentifierRule()],
-            "full_name" => ["required", "string", "max:127"],
-            "password" => ['required', "string", "min:8", "confirmed"],
-            'birthdate' => [
-                'required',
-                'date',
-                function ($attribute, $value, $fail) {
-                    $birth = Carbon::parse($value);
-                    $age = $birth->age;
-                    if ($age < 15) {
-                        $fail('You must be at least 15 years old.');
-                    }
-                }
-            ],
+            'full_name' => ['required', 'string', 'max:127'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'birthdate' => ['required', 'date', 'before:' . now()->subYears(15)->format('Y-m-d')],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'birthdate.before' => 'You must be at least 15 years old',
         ];
     }
 }

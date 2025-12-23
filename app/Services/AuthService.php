@@ -7,9 +7,11 @@ use App\Enums\OtpTypeEnum;
 use App\Exceptions\IdentifierAlreadyExistsException;
 use App\Exceptions\InvalidCredentialsException;
 use App\Exceptions\InvalidOtpException;
+use App\Listeners\SendFailedLoginNotification;
 use App\Models\Complainant;
 use App\Repositories\ComplainantRepository;
 use App\Repositories\OtpRepository;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -40,12 +42,20 @@ class AuthService
     {
         $identifier = $data['identifier'];
         $user = $this->repository->findByIdentifier($identifier);
-        if (!$user || !$user->is_verified || !Hash::check($data['password'], $user->password)) {
+        if (!$user ||!$user->is_verified)
+            throw new InvalidCredentialsException();
+        if (!Hash::check($data['password'], $user->password)) {
+            event(new Failed(
+                'sanctum',
+                $user,
+                ['identifier' => $identifier]
+            ));
             throw new InvalidCredentialsException();
         }
-        $token = $user->createToken("citizen_token")->plainTextToken;
+        $token = $user->createToken('citizen_token')->plainTextToken;
         return new LoginResultDTO($user, $token);
     }
+
 
     public function postOtpVerification(string $identifier, OtpTypeEnum $type)
     {

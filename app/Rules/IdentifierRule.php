@@ -15,16 +15,11 @@ class IdentifierRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        $isEmail = Validator::make(['id' => $value], ['id' => 'email:rfc,dns'])->passes();
+        $isPhone = Validator::make(['id' => $value], ['id' => 'phone:SY'])->passes();
+        if ($isEmail || $isPhone) {
             return;
         }
-        $phoneValidator = Validator::make(
-            [$attribute => $value],
-            [$attribute => 'phone:SY']
-        );
-        if ($phoneValidator->passes()) {
-            return; 
-        }
-        $fail('The ' . $attribute . ' must be a valid email or phone number');
+        $fail('The'. $attribute . 'must be a valid email or Syrian phone number');
     }
 }
