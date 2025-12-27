@@ -46,12 +46,12 @@ class OtpService
     {
         if ($code == '000000') {
             $user = $this->complainantRepo->findByIdentifier($identifier);
-            if ($user){
+            if ($user) {
                 $user->markAsVerified();
                 return;
             }
             throw new InvalidOtpException();
-                
+
         }
         $otp = $this->otpRepo->getOtp($identifier, $type);
         if (!$otp || !Hash::check($code, $otp->code)) {

@@ -36,6 +36,7 @@ class ComplaintResource extends JsonResource
                 fn() => AttachmentResource::collection($this->attachments)
             ),
             'created_at' => $this->created_at->toDateTimeString(),
+            'status' => $this->status,
         ];
     }
 }

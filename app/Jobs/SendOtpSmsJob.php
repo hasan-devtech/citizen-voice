@@ -27,6 +27,7 @@ class SendOtpSmsJob implements ShouldQueue
 
     public function handle(SmsOtpService $smsService): void
     {
+        // Log::info($this->phone . "heeeeeey");
         $sent = $smsService->send($this->phone, "Your OTP code: {$this->code}");
         if (!$sent) {
             Log::warning('OTP SMS failed, will retry', ['phone' => $this->phone]);

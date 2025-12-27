@@ -11,7 +11,8 @@ class ComplaintCategoryService
      */
     public function __construct(
         protected ComplaintCategoryRepository $repo
-    ) {}
+    ) {
+    }
     public function getCategories($filters)
     {
         return $this->repo->getAll($filters);

@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Http\Resources\ComplainantResource;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -15,7 +17,10 @@ class Complainant extends Model
 {
     use LogsActivity;
     use HasFactory, SoftDeletes, HasApiTokens, Notifiable;
-    
+    use QueryCacheable;
+
+    public $cacheFor = 3600;
+    protected static $flushCacheOnUpdate = true;
     protected $fillable = [
         'identifier',
         'password',
@@ -81,6 +86,4 @@ class Complainant extends Model
     {
         return $this->identifier;
     }
-
-
 }

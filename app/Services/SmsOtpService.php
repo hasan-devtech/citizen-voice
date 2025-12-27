@@ -19,7 +19,7 @@ class SmsOtpService
                     ]);
             if (!$response->successful()) {
                 Log::error('SMS sending failed', [
-                    'phone' => $phone,
+                    'phone' => "+963" . $phone,
                     'response' => $response->body(),
                 ]);
                 return false;

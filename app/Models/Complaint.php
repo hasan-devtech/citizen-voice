@@ -14,7 +14,6 @@ class Complaint extends Model
 {
     use LogsActivity;
     use HasFactory, SoftDeletes;
-
     protected $fillable = [
         'complainant_id',
         'complaint_category_id',
@@ -25,6 +24,9 @@ class Complaint extends Model
         'description',
         'status',
     ];
+
+    protected static $recordEvents = ['updated', 'deleted'];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -51,7 +53,7 @@ class Complaint extends Model
     {
         static::creating(function ($complaint) {
             if (!$complaint->reference_number) {
-                $complaint->reference_number = 'CMP-' . Str::ulid();
+                $complaint->reference_number = 'CMP-' . $complaint->id . Str::random(10);
             }
         });
     }
@@ -101,4 +103,5 @@ class Complaint extends Model
     {
         return $this->morphMany(Attachment::class, 'attachable');
     }
+
 }

@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Repositories\AgencyRepository;
 
+
 class AgencyService
 {
+
     /**
      * Create a new class instance.
      */
