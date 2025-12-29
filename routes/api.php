@@ -37,8 +37,9 @@ Route::controller(ComplaintController::class)->middleware(['auth:sanctum', 'set.
     Route::get('', 'index');
 });
 Route::get('attachments/{attachment}', [AttachmentController::class, 'show'])
-    ->middleware(['auth:sanctum', 'signed'])
+    ->middleware('auth:sanctum')
     ->name('attachments.show');
+
 
 
 

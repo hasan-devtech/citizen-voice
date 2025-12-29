@@ -21,22 +21,14 @@ class ResponseHelper
         ], $status);
     }
 
-    public static function paginated($items, string $message = 'Success', int $status = 200)
+    public static function paginate($code = 200, $msg = "ok", $data = null)
     {
-        return response()->json([
-            'success' => true,
-            'message' => $message,
-            'data' => [
-                'items' => $items->items(),
-                'pagination' => [
-                    'total' => $items->total(),
-                    'count' => $items->count(),
-                    'per_page' => $items->perPage(),
-                    'current_page' => $items->currentPage(),
-                    'last_page' => $items->lastPage(),
-                    'has_more' => $items->hasMorePages(),
-                ]
-            ],
-        ], $status);
+        $response = [
+            'message' => $msg,
+            'data' => $data->response()->getData()->data,
+            'links' => $data->response()->getData()->links,
+            'meta' => $data->response()->getData()->meta
+        ];
+        return response()->json($response, $code);
     }
 }

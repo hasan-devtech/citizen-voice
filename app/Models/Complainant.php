@@ -3,17 +3,17 @@
 namespace App\Models;
 
 use App\Http\Resources\ComplainantResource;
-use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Rennokki\QueryCache\Traits\QueryCacheable;
 use Spatie\Activitylog\LogOptions;
+
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Complainant extends Model
+class Complainant extends Authenticatable
 {
     use LogsActivity;
     use HasFactory, SoftDeletes, HasApiTokens, Notifiable;

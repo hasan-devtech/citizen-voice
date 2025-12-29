@@ -1,8 +1,12 @@
 <?php
 
+use App\Helpers\ResponseHelper;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,5 +27,9 @@ return Application::configure(basePath: dirname(__DIR__))
         __DIR__ . '/../app/Listeners',
     ])
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (AccessDeniedHttpException|AuthorizationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return ResponseHelper::error('This action is unauthorized', 403);
+            }
+        });
     })->create();

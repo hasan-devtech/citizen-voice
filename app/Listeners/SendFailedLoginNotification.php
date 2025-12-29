@@ -21,7 +21,7 @@ class SendFailedLoginNotification
         }
         $userKey = 'login_attempts_user:' . $identifier;
         $ipKey = 'login_attempts_ip:' . request()->ip();
-        Log::info('key  ' . $userKey . ' $ipKey ' . $ipKey);
+        Log::info('key  '.$userKey . ' $ipKey ' . $ipKey);
         RateLimiter::hit($userKey, 600);
         if (RateLimiter::attempts($userKey) % 3 === 0 && $event->user) {
             $type = $this->identifierService->type($identifier);

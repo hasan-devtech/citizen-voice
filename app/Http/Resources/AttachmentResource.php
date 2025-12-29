@@ -16,13 +16,11 @@ class AttachmentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-    return [
-        'id' => $this->id,
-        'url' => URL::temporarySignedRoute(
-            'attachments.show',
-            now()->addMinutes(15),
-            ['attachment' => $this->id]
-        ),
-    ];
+        return [
+            'id' => $this->id,
+            'mime' => $this->mime_type,
+            'size_kb' => $this->size_kb,
+            'url' =>  route('attachments.show', $this),
+        ];
     }
 }
