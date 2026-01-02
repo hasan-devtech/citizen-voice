@@ -27,7 +27,7 @@ This system guarantees citizens are informed at every step using a multi-channel
 
 1.  **Clone the Repo**
     ```bash
-    git clone [https://github.com/hasan-devtech/citizen-voice.git](https://github.com/hasan-devtech/citizen-voice.git)
+    git clone (https://github.com/hasan-devtech/citizen-voice.git)
     cd citizen-voice
     ```
 
