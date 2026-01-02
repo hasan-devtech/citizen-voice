@@ -20,7 +20,7 @@ This system guarantees citizens are informed at every step using a multi-channel
 
 - **Backend:** Laravel (PHP)
 - **Database:** MySQL
-- **Notifications:** Firebase FCM, Twilio (or similar SMS API), Mailtrap
+- **Notifications:** Firebase FCM, SMS driver, Mailtrap
 - **Testing:** Postman (API Endpoint Validation)
 
 ## 🚀 Installation
